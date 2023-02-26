@@ -1,0 +1,28 @@
+from PyQt5.QtWidgets import *
+from PyQt5.QtGui import *
+from PyQt5.QtCore import *
+
+from ztext_edit import ZTextEdit
+
+class WidgetInteraction(QWidget):
+    def __init__(self):
+        super().__init__()
+        self.init_ui()
+
+    def init_ui(self):
+        self.te = ZTextEdit()
+        self.te.setText("123456\r\neerrtt")
+        self.te.setReadOnly(True)
+        # self.te.installEventFilter(Filter(self))
+
+        vbox = QVBoxLayout()
+        vbox.addWidget(self.te)
+
+        self.setLayout(vbox)
+
+if __name__ == '__main__':
+    import sys
+    app = QApplication(sys.argv)
+    widget = WidgetInteraction()
+    widget.show()
+    sys.exit(app.exec())

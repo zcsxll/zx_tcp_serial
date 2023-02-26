@@ -1,0 +1,38 @@
+from logging import Filter
+from PyQt5.QtWidgets import *
+from PyQt5.QtGui import *
+from PyQt5.QtCore import *
+
+class Filter(QObject):
+    def eventFilter(self, obj, e):
+        # if isinstance(e, QKeyEvent):
+        #     print(e, e.type(), f'[{e.text()}] [{e.key()}]')
+        if e.type() == QEvent.KeyPress:
+            if (e.key() <= 255):
+                if (ord(e.text()) == 127):
+                    obj.textCursor().deletePreviousChar()
+                else:
+                    obj.textCursor().insertText(e.text())
+                return True
+            # if e.key() == 
+        # else:
+            # if isinstance(e, QKeyEvent):
+            #     print(e, e.type(), f'[{e.text()}]')
+            # if hasattr(e, 'text'):
+            #     print(e.text())
+            # elif isinstance(e, QEnterEvent):
+            #     print(e, e.type())
+        return super().eventFilter(obj, e)
+
+class ZTextEdit(QTextEdit):
+    def __init__(self):
+        super().__init__()
+        self.installEventFilter(Filter(self))
+
+    # def paintEvent(self, e) -> None:
+    #     # return super().paintEvent(e)
+    #     # print(self.toPlainText())
+    #     pass
+
+    # def keyPressEvent(self, e):
+    #     print(e)

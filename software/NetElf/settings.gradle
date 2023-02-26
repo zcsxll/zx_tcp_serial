@@ -1,0 +1,2 @@
+rootProject.name = "NetElf"
+include ':app'
